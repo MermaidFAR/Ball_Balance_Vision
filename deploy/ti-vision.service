@@ -1,0 +1,16 @@
+[Unit]
+Description=TI RDK Ball Position Vision
+After=local-fs.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/TI/vision
+ExecCondition=/usr/bin/test -e /dev/video0
+ExecStart=/root/TI/vision/build/ti_vision --uart /dev/ttyS1 --target-control 0 --zero-px 333.0831 --cm-per-px 0.0220166164
+Restart=on-failure
+RestartSec=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
